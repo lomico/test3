@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio-Pouillettes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: white; /* ou transparent si besoin */
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .player-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      background: linear-gradient(to right, #d946ef, #6366f1); /* violet -> bleu */
+      color: white;
+      font-size: 18px;
+      padding: 10px 30px;
+      border: 4px solid green;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player-container">
+    <button id="playPauseBtn" aria-label="Play or pause the audio">Chargement…</button>
+    <audio id="webradio"></audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById("webradio");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+
+    // Remplace cette URL par l'URL "raw" de ton fichier config.json sur GitHub Gist
+    const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/e618a317afe36f76f90b071221a9097080e53c77/config.json";
+
+    fetch(configUrl)
+      .then(response => response.json())
+      .then(data => {
+        audio.src = data.stream;
+        playPauseBtn.textContent = "Play Pouillettes ▶";
+        
+        playPauseBtn.addEventListener("click", function () {
+          if (audio.paused) {
+            audio.play();
+            playPauseBtn.textContent = "Pause ⏸";
+          } else {
+            audio.pause();
+            playPauseBtn.textContent = "Play Pouillettes ▶";
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Erreur de chargement du config.json:", error);
+        playPauseBtn.textContent = "Erreur de chargement";
+        playPauseBtn.disabled = true;
+      });
+  </script>
+
+</body>
+</html>

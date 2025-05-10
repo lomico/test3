@@ -32,9 +32,6 @@
       cursor: pointer;
       transition: transform 0.2s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     button:hover {
@@ -57,7 +54,6 @@
     const audio = document.getElementById("webradio");
     const playPauseBtn = document.getElementById("playPauseBtn");
 
-    // URL vers le fichier config.json
     const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/dd3a0a0758f884a8a14945ed743a2a50855c0149/config.json?t=" + Date.now();
 
     fetch(configUrl)
@@ -65,5 +61,28 @@
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        return response.json*
-
+        return response.json();  // ✅ CORRECTION des parenthèses
+      })
+      .then(data => {
+        audio.src = data.stream;
+        playPauseBtn.textContent = "▶ Go !"; // texte initial
+
+        playPauseBtn.addEventListener("click", function () {
+          if (audio.paused) {
+            audio.play();
+            playPauseBtn.textContent = "⏸ Pause";
+          } else {
+            audio.pause();
+            playPauseBtn.textContent = "▶ Go !";
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Erreur de chargement du config.json:", error);
+        playPauseBtn.textContent = "Erreur";
+        playPauseBtn.disabled = true;
+      });
+  </script>
+
+</body>
+</html>

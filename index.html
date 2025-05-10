@@ -73,7 +73,7 @@
       .then(response => response.json())
       .then(data => {
         audio.src = data.stream;
-        btnText.textContent = "Go !";
+        btnText.textContent = "Play Pouillettes !";
         
         playPauseBtn.addEventListener("click", function () {
           if (audio.paused) {
@@ -82,7 +82,7 @@
             icon.src = "https://upload.wikimedia.org/wikipedia/commons/f/f4/Pause_font_awesome.svg"; // icône pause
           } else {
             audio.pause();
-            btnText.textContent = "Go !";
+            btnText.textContent = "Play Pouillettes !";
             icon.src = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Blue_Play_Button.png"; // icône play
           }
         });

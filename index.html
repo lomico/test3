@@ -27,7 +27,7 @@
       color: white;
       font-size: 18px;
       padding: 10px 30px;
-      border: 4px solid #d2b48c; /* gris/beige clair comme sur l'image */
+      border: 4px solid #d2b48c; /* gris/beige clair */
       border-radius: 15px;
       cursor: pointer;
       transition: transform 0.2s ease;
@@ -35,7 +35,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     button:hover {
@@ -50,7 +49,7 @@
 <body>
 
    <div class="player-container">
-    <button id="playPauseBtn" aria-label="Play or pause the audio">Chargement…</button>
+    <button id="playPauseBtn" aria-label="Play or pause the audio" aria-live="polite">Chargement…</button>
     <audio id="webradio"></audio>
   </div>
 
@@ -58,30 +57,13 @@
     const audio = document.getElementById("webradio");
     const playPauseBtn = document.getElementById("playPauseBtn");
 
-    // Remplace cette URL par l'URL "raw" de ton fichier config.json sur GitHub Gist
-    const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/dd3a0a0758f884a8a14945ed743a2a50855c0149/config.json";
+    // URL vers le fichier config.json
+    const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/dd3a0a0758f884a8a14945ed743a2a50855c0149/config.json?t=" + Date.now();
 
     fetch(configUrl)
-      .then(response => response.json())
-      .then(data => {
-        audio.src = data.stream;
-        playPauseBtn.textContent = "Play Pouillettes ▶";
-        
-        playPauseBtn.addEventListener("click", function () {
-          if (audio.paused) {
-            audio.play();
-            playPauseBtn.textContent = "Pause ⏸";
-          } else {
-            audio.pause();
-            playPauseBtn.textContent = "Play Pouillettes ▶";
-          }
-        });
-      })
-      .catch(error => {
-        console.error("Erreur de chargement du config.json:", error);
-        playPauseBtn.textContent = "Erreur de chargement";
-        playPauseBtn.disabled = true;
-      });
-  </script>
-
-</body>
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json*
+

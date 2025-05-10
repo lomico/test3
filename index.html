@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radio-Moliets</title>
+  <title>Radio-Pouillettes</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
@@ -12,7 +12,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: white; /* ou transparent si besoin */
+      background-color: white;
       font-family: 'Montserrat', sans-serif;
     }
 
@@ -23,11 +23,11 @@
     }
 
     button {
-      background: linear-gradient(to right, #d946ef, #6366f1); /* violet -> bleu */
+      background: linear-gradient(to right, #006400, #32CD32); /* vert foncé -> vert clair */
       color: white;
       font-size: 18px;
       padding: 10px 30px;
-      border: 4px solid orange;
+      border: 4px solid #d2b48c; /* gris clair */
       border-radius: 15px;
       cursor: pointer;
       transition: transform 0.2s ease;
@@ -54,14 +54,13 @@
     const audio = document.getElementById("webradio");
     const playPauseBtn = document.getElementById("playPauseBtn");
 
-    // Remplace cette URL par l'URL "raw" de ton fichier config.json sur GitHub Gist
-    const configUrl = "https://gist.githubusercontent.com/lomico/d87a70043570a09e830a55daaa19bbfc/raw/27d74bcbd6731978401ced8f012e6018eb7a9bb1/config.json";
+    const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/dd3a0a0758f884a8a14945ed743a2a50855c0149/config.json";
 
     fetch(configUrl)
       .then(response => response.json())
       .then(data => {
         audio.src = data.stream;
-        playPauseBtn.textContent = "Play Landifornia ▶";
+        playPauseBtn.textContent = "Play Pouillettes ▶";
         
         playPauseBtn.addEventListener("click", function () {
           if (audio.paused) {
@@ -69,7 +68,7 @@
             playPauseBtn.textContent = "Pause ⏸";
           } else {
             audio.pause();
-            playPauseBtn.textContent = "Play Landifornia ▶";
+            playPauseBtn.textContent = "Play Pouillettes ▶";
           }
         });
       })

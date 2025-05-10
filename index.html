@@ -59,13 +59,13 @@
     const playPauseBtn = document.getElementById("playPauseBtn");
 
     // Remplace cette URL par l'URL "raw" de ton fichier config.json sur GitHub Gist
-    const configUrl = "https://gist.githubusercontent.com/lomico/d87a70043570a09e830a55daaa19bbfc/raw/27d74bcbd6731978401ced8f012e6018eb7a9bb1/config.json";
+    const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/dd3a0a0758f884a8a14945ed743a2a50855c0149/config.json";
 
     fetch(configUrl)
       .then(response => response.json())
       .then(data => {
         audio.src = data.stream;
-        playPauseBtn.textContent = "Play Landifornia ▶";
+        playPauseBtn.textContent = "Play Pouillettes ▶";
         
         playPauseBtn.addEventListener("click", function () {
           if (audio.paused) {
@@ -73,7 +73,7 @@
             playPauseBtn.textContent = "Pause ⏸";
           } else {
             audio.pause();
-            playPauseBtn.textContent = "Play Landifornia ▶";
+            playPauseBtn.textContent = "Play Pouillettes ▶";
           }
         });
       })

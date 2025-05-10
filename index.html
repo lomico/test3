@@ -12,7 +12,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: white; /* ou transparent si besoin */
+      background-color: white;
       font-family: 'Montserrat', sans-serif;
     }
 
@@ -23,15 +23,23 @@
     }
 
     button {
-      background: linear-gradient(to right, #d946ef, #6366f1); /* violet -> bleu */
+      background: linear-gradient(to right, #006400, #32CD32); /* vert foncé -> vert clair */
       color: white;
       font-size: 18px;
       padding: 10px 30px;
-      border: 4px solid green;
+      border: 4px solid #008000; /* vert */
       border-radius: 15px;
       cursor: pointer;
       transition: transform 0.2s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button img {
+      width: 18px;
+      height: 18px;
     }
 
     button:hover {
@@ -46,36 +54,42 @@
 <body>
 
   <div class="player-container">
-    <button id="playPauseBtn" aria-label="Play or pause the audio">Chargement…</button>
+    <button id="playPauseBtn" aria-label="Play or pause the audio">
+      <img id="icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Blue_Play_Button.png" alt="Play Icon">
+      <span id="btnText">Chargement…</span>
+    </button>
     <audio id="webradio"></audio>
   </div>
 
   <script>
     const audio = document.getElementById("webradio");
     const playPauseBtn = document.getElementById("playPauseBtn");
+    const btnText = document.getElementById("btnText");
+    const icon = document.getElementById("icon");
 
-    // Remplace cette URL par l'URL "raw" de ton fichier config.json sur GitHub Gist
     const configUrl = "https://gist.githubusercontent.com/lomico/a5a65efb3467002efca8472eab52ba40/raw/e618a317afe36f76f90b071221a9097080e53c77/config.json";
 
     fetch(configUrl)
       .then(response => response.json())
       .then(data => {
         audio.src = data.stream;
-        playPauseBtn.textContent = "Play Pouillettes ▶";
+        btnText.textContent = "Go !";
         
         playPauseBtn.addEventListener("click", function () {
           if (audio.paused) {
             audio.play();
-            playPauseBtn.textContent = "Pause ⏸";
+            btnText.textContent = "Pause";
+            icon.src = "https://upload.wikimedia.org/wikipedia/commons/f/f4/Pause_font_awesome.svg"; // icône pause
           } else {
             audio.pause();
-            playPauseBtn.textContent = "Play Pouillettes ▶";
+            btnText.textContent = "Go !";
+            icon.src = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Blue_Play_Button.png"; // icône play
           }
         });
       })
       .catch(error => {
         console.error("Erreur de chargement du config.json:", error);
-        playPauseBtn.textContent = "Erreur de chargement";
+        btnText.textContent = "Erreur";
         playPauseBtn.disabled = true;
       });
   </script>
